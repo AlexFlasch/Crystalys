@@ -1,0 +1,25 @@
+{
+  "name": "crystalys",
+  "version": "0.1.0",
+  "description": "A wrapper for Valve's DOTA2 WebAPI that uses promises and ES6 techniques!",
+  "main": "crystalys.js",
+  "scripts": {
+    "test": "node test.js",
+    "run": "node crystalys.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Flascher/Crystalys.git"
+  },
+  "keywords": [
+    "DOTA2",
+    "api",
+    "promise"
+  ],
+  "author": "Flascher flascherdev@gmail.com",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Flascher/Crystalys/issues"
+  },
+  "homepage": "https://github.com/Flascher/Crystalys#readme"
+}
