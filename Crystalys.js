@@ -1,16 +1,14 @@
 function useStrict() {'use strict';}
 
-var chalk = require('chalk');
+var Utils = require('./Utils');
+var ApiComponent = require('./ApiComponent');
+var Endpoint = require('./Endpoint');
+var Parameter = require('./Parameter');
 
-var Utils = require('./Utils.js');
-var ApiComponent = require('./ApiComponent.js');
-var Endpoint = require('./Endpoint.js');
-
-class Crystalys {
+module.exports = class Crystalys {
 	constructor() {
 		useStrict();
-
-		this.apiKey = '';
+		
 		this.apiKeyIsSet = false;
 
 		this.api = {
@@ -18,55 +16,33 @@ class Crystalys {
 				'Match',
 				'IDOTA2Match_570/'
 			)
-				.addEndpoint(new Endpoint(
+				.addEndpoint(
 					'GetMatchHistory',
-					'GetMatchHistory/'
-				))
+					'GetMatchHistory/',
+					false
+				)
 					.addParameter(
 						'heroID',
 						'hero_id',
 						false
 					)
 		};
-	}
 
-	static log(message) {
-		useStrict();
-
-		var prefix = chalk.bold.red('CRIT: ');
-		console.log(prefix + message);
+		for(var apiComponent in this.api) {
+			Object.defineProperty(this, apiComponent, {
+				enumerable: true,
+				configurable: false,
+				assignable: false,
+				value: this.api[apiComponent]
+			});
+		}
+		delete this.api;
 	}
 
 	setApiKey(key) {
 		useStrict();
 
-		this.apiKey = key;
+		Utils.setApiKey(key);
 		this.apiKeyIsSet = true;
-		Crystalys.log('API key set');
 	}
-
-	getApiKey(key) {
-		useStrict();
-
-		if(this.apiKeyIsSet) {
-			return this.apiKey;
-		} else {
-			Crystalys.log('API key is not set');
-			return null;
-		}
-	}
-}
-
-var exports = {};
-var crystalys = new Crystalys();
-
-// add the api directly to the exports obj
-for(var apiComponent in crystalys.api) {
-	Utils.addExport(apiComponent.name, apiComponent);
-}
-
-// add any additional functions/variables to the exports obj
-Utils.addExport('setApiKey', crystalys.setApiKey);
-Utils.addExport('log', crystalys.log);
-
-module.exports = exports;
+};

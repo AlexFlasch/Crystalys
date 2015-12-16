@@ -1,19 +1,16 @@
-//var crystalys = require('./Crystalys.js');
-var Endpoint = require('./Endpoint.js');
+var Crystalys = require('./Crystalys.js');
+var crystalys = new Crystalys();
+var util = require('util');
 
-var endpoint = new Endpoint(undefined, 'test', 'test');
+crystalys.setApiKey('17205AAF215CAD06C29BA302971AD4F0');
 
-for(var prop in endpoint) {
-	console.log(prop);
-}
+console.log('\n\ncrystalys: ' + util.inspect(crystalys, {showHidden: false, depth: null}));
 
-// crystalys.setApiKey('17205AAF215CAD06C29BA302971AD4F0');
-//
-// var promise = crystalys.Match.GetMatchHistory.sendRequest();
-//
-// promise.then(function(response) {
-// 	console.log(response);
-// });
+var promise = crystalys.Match.GetMatchHistory.sendRequest();
+
+promise.then(function(response) {
+	console.log(response);
+});
 
 // var rp = require('request-promise');
 //

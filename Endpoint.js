@@ -1,9 +1,9 @@
 function useStrict() {'use strict';}
 
-var crystalys = require('./Crystalys.js');
-var Parameter = require('./Parameter.js');
+var Utils = require('./Utils');
+var Parameter = require('./Parameter');
 
-module.export = class Endpoint {
+module.exports = class Endpoint {
 	constructor(parent, name, url) {
 		useStrict();
 
@@ -30,18 +30,62 @@ module.export = class Endpoint {
 		var parameter = new Parameter(this, name, url, required);
 		var that = this;
 
-		// dynamically assign a new parameter to the parameters object at the key parameter.name
-		Object.defineProperty(this.parameters, parameter.name, {
-			enumerable: true,
-			configurable: false,
-			assignable: false,
-			value: parameter
-		});
+		// // dynamically assign a new parameter to the parameters object at the key parameter.name
+		// Object.defineProperty(this, parameter.name, {
+		// 	enumerable: true,
+		// 	configurable: false,
+		// 	assignable: false,
+		// 	value: parameter
+		// });
 
 		var paramFunc = function(value) {
-			crystalys.log(that.parameters[parameter.name].value);
+			Utils.log(that.parameters[parameter.name].value);
 			that.parameters[parameter.name].value = value;
-			crystalys.log(that.parameters[parameter.name].value);
+			Utils.log(that.parameters[parameter.name].value);
+
+			///
+			/// This method will generate the request URL for the API call that's been chained together,
+			/// send the request, and return a promise object to the user to resolve when needed.
+			///
+			/// params: none
+			///
+			function sendRequest() {
+				useStrict();
+
+				var requestUrl = '';
+
+				var baseUrl = 'https://api.steampowered.com/';
+				var apiComponentUrl = that.parent.url;
+				var endpointUrl = that.url;
+				var apiKey = Utils.getApiKey();
+				var parameterStrings = [];
+
+				for(var parameter in that.parameters) {
+					var parameterUrl = parameter.url;
+					var parameterValue = parameter.value;
+
+					if(parameterValue === null && parameter.required) {
+						Utils.log('the request was not sent due to a required parameter not being given a value.');
+						return;
+					}
+					else if(parameterValue === null) {
+						continue;
+					}
+
+					var parameterString = '&' + parameterUrl + '=' + parameterValue.toString();
+					parameterStrings.push(parameterString);
+				}
+
+				requestUrl = baseUrl + apiComponentUrl + endpointUrl + '?key=' + apiKey;
+
+				for(var i = 0; i < parameterStrings.length; i++) {
+					requestUrl += parameterStrings[i];
+				}
+
+				Utils.log(requestUrl);
+
+				return rp(requestUrl);
+			}
 
 			return that;
 		};
@@ -52,6 +96,8 @@ module.export = class Endpoint {
 			assignable: false,
 			value: paramFunc
 		});
+
+		return this;
 	}
 
 	///
@@ -69,11 +115,11 @@ module.export = class Endpoint {
 		var baseUrl = 'https://api.steampowered.com/';
 		var apiComponentUrl = this.parent.parent.url;
 		var endpointUrl = this.parent.url;
-		var apiKey = Crystalys.getApiKey();
+		var apiKey = Utils.getApiKey();
 
 		for(var parameter in this.parameters) {
 			if(parameter.required) {
-				Crystalys.log('the request was not sent due to a required parameter not being given a value.');
+				Utils.log('the request was not sent due to a required parameter not being given a value.');
 				return;
 			}
 		}

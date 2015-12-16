@@ -4,7 +4,7 @@
   "description": "A wrapper for Valve's DOTA2 WebAPI that uses promises and ES6 techniques!",
   "main": "crystalys.js",
   "scripts": {
-    "test": "node test.js",
+    "test": "node --use_strict test.js",
     "run": "node crystalys.js"
   },
   "repository": {

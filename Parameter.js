@@ -1,9 +1,9 @@
 function useStrict() {'use strict';}
 
 var rp = require('request-promise');
-var Crystalys = require('./Crystalys.js');
+var Utils = require('./Utils');
 
-module.export = class Parameter {
+module.exports = class Parameter {
 	constructor(parent, name, url, required) {
 		useStrict();
 
@@ -28,7 +28,7 @@ module.export = class Parameter {
 		var baseUrl = 'https://api.steampowered.com/';
 		var apiComponentUrl = this.parent.parent.url;
 		var endpointUrl = this.parent.url;
-		var apiKey = Crystalys.getApiKey();
+		var apiKey = Utils.getApiKey();
 		var parameterStrings = [];
 
 		for(var parameter in this.parent.parameters) {
@@ -36,7 +36,7 @@ module.export = class Parameter {
 			var parameterValue = parameter.value;
 
 			if(parameterValue === null && parameter.required) {
-				Crystalys.log('the request was not sent due to a required parameter not being given a value.');
+				Utils.log('the request was not sent due to a required parameter not being given a value.');
 				return;
 			}
 			else if(parameterValue === null) {
@@ -53,7 +53,7 @@ module.export = class Parameter {
 			requestUrl += parameterStrings[i];
 		}
 
-		Crystalys.log(requestUrl);
+		Utils.log(requestUrl);
 
 		return rp(requestUrl);
 	}
