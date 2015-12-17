@@ -1,32 +1,24 @@
 function useStrict() {'use strict';}
 
 var Utils = require('./Utils');
-var ApiComponent = require('./ApiComponent');
-var Endpoint = require('./Endpoint');
-var Parameter = require('./Parameter');
+var ApiHandler = require('./ApiHandler');
+var SchemaHandler = require('./SchemaHandler');
+var EndpointHandler = require('./EndpointHandler');
+var ParameterHandler = require('./ParameterHandler');
+
+var steamWebApiVersion = 1;
 
 module.exports = class Crystalys {
 	constructor() {
 		useStrict();
-		
+
 		this.apiKeyIsSet = false;
 
-		this.api = {
-			Match: new ApiComponent(
-				'Match',
-				'IDOTA2Match_570/'
+		this.api = new ApiHandler().addSchema(
+			new SchemaHandler('Match', 'IDOTA2Match_205790').addEndpoint(
+				new EndpointHandler('GetMatchHistory', 'GetMatchHistory', steamWebApiVersion, false)
 			)
-				.addEndpoint(
-					'GetMatchHistory',
-					'GetMatchHistory/',
-					false
-				)
-					.addParameter(
-						'heroID',
-						'hero_id',
-						false
-					)
-		};
+		).getApi();
 
 		for(var apiComponent in this.api) {
 			Object.defineProperty(this, apiComponent, {
@@ -40,8 +32,6 @@ module.exports = class Crystalys {
 	}
 
 	setApiKey(key) {
-		useStrict();
-
 		Utils.setApiKey(key);
 		this.apiKeyIsSet = true;
 	}

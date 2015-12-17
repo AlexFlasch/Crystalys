@@ -8,6 +8,10 @@ Desktop.ini
 # Ignored directories
 node_modules/
 es5/
+.vscode/
+
+# Ignored files
+.jshintrc
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/

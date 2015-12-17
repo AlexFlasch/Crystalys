@@ -1,16 +1,12 @@
-var Crystalys = require('./Crystalys.js');
+'use strict';
+
+var Crystalys = require('./Crystalys');
 var crystalys = new Crystalys();
 var util = require('util');
 
 crystalys.setApiKey('17205AAF215CAD06C29BA302971AD4F0');
 
-console.log('\n\ncrystalys: ' + util.inspect(crystalys, {showHidden: false, depth: null}));
 
-var promise = crystalys.Match.GetMatchHistory.sendRequest();
-
-promise.then(function(response) {
-	console.log(response);
-});
 
 // var rp = require('request-promise');
 //

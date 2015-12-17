@@ -5,7 +5,7 @@ var util = require('util');
 var Utils = require('./Utils');
 var Endpoint = require('./Endpoint');
 
-module.exports = class ApiComponent {
+module.exports = class Schema {
 	constructor(name, url) {
 		useStrict();
 
@@ -19,7 +19,7 @@ module.exports = class ApiComponent {
 	}
 
 	///
-	/// This method will add an endpoint to ApiComponent.endpoints and
+	/// This method will add an endpoint to Schema.endpoints and
 	/// dynamically create a function to define that endpoint's value
 	/// (only if the endpoint accepts no parameters)
 	///
@@ -33,24 +33,6 @@ module.exports = class ApiComponent {
 
 		var endpoint = new Endpoint(this, endpointName, endpointUrl);
 
-		// box in an object to pass by reference
-		var that = {that: this};
-
-		var clonedEndpoint = Utils.clone(endpoint);
-		delete clonedEndpoint.parent.endpoints;
-
-		console.log('\n\nclonedEndpoint: ' + util.inspect(clonedEndpoint, {showHidden: false, depth: null}));
-		console.log('\n\nthis (in addEndpoint): ' + util.inspect(that.that, {showHidden: false, depth: null}));
-
-		this[endpointName] = clonedEndpoint;
-
-		// var editedApiComponent = Object.defineProperty(this, clonedEndpoint.name, {
-		// 	enumerable: true,
-		// 	configurable: false,
-		// 	assignable: false,
-		// 	value: clonedEndpoint
-		// });
-
 		if(!needsParameters) {
 			var sendRequest = function() {
 				useStrict();
@@ -58,7 +40,7 @@ module.exports = class ApiComponent {
 				var requestUrl = '';
 
 				var baseUrl = 'https://api.steampowered.com/';
-				var apiComponentUrl = this.parent.parent.url;
+				var schemaUrl = this.parent.parent.url;
 				var endpointUrl = this.parent.url;
 				var apiKey = Utils.getApiKey();
 
@@ -69,21 +51,12 @@ module.exports = class ApiComponent {
 					}
 				}
 
-				requestUrl = baseUrl + apiComponentUrl + endpointUrl + '?key=' + apiKey;
+				requestUrl = baseUrl + schemaUrl + endpointUrl + '?key=' + apiKey;
 
 				return rp(requestUrl);
 			};
 
 			this[endpointName].sendRequest = sendRequest;
-
-			// Object.defineProperty(editedApiComponent[clonedEndpoint.name], 'sendRequest', {
-			// 	enumerable: true,
-			// 	configurable: false,
-			// 	assignable: false,
-			// 	value: sendRequest
-			// });
-
-			// console.log('editedApiComponent: ' + util.inspect(editedApiComponent, {showHidden: false, depth: null}));
 		}
 
 		return endpoint;
