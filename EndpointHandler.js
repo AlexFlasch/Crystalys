@@ -58,13 +58,6 @@ module.exports = class EndpointHandler {
         var endpoint = {};
 	    endpoint.values = {};
 	    endpoint.urlSegments = urlSegments;
-        endpoint.sendRequest = function() {
-            if (endpoint.requestable) {
-
-            } else {
-                Utils.log('Cannot make a request on this endpoint without parameters');
-            }
-        }
         endpoint.getUrlSegments = function() {
             return this.urlSegment;
         }
