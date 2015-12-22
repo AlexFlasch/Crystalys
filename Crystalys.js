@@ -11,7 +11,7 @@ var RequestHandler = require('./RequestHandler');
 
 var steamWebApiVersion = 1;
 
-module.exports = class Crystalys {
+module.exports = class crystalys {
 	constructor() {
 		useStrict();
 

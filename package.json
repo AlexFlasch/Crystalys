@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/Flascher/Crystalys/issues"
   },
-  "homepage": "https://github.com/Flascher/Crystalys#readme"
+  "homepage": "https://github.com/Flascher/Crystalys#readme",
+  "dependencies": {
+    "request-promise": "^1.0.2"
+  }
 }
