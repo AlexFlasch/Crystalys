@@ -1,16 +1,13 @@
 'use strict';
 
-var Crystalys = require('./Crystalys');
+var Crystalys = require('./Crystalys').setApiKey('17205AAF215CAD06C29BA302971AD4F0');
 var crystalys = new Crystalys();
 var util = require('util');
 
-crystalys.setApiKey('17205AAF215CAD06C29BA302971AD4F0');
+console.log('crystalys.Match.GetMatchHistory: ' + util.inspect(crystalys.Match.GetMatchHistory));
 
+var promise = crystalys.Match.GetMatchHistory.heroID(1).sendRequest();
 
-
-// var rp = require('request-promise');
-//
-// rp('https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/v1?key=17205AAF215CAD06C29BA302971AD4F0')
-// 	.then(function(response) {
-// 		console.log(response);
-// 	});
+promise.then(function(response) {
+    console.log(util.inspect(response));
+})

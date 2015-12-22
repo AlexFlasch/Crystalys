@@ -24,7 +24,9 @@ module.exports = class ParameterHandler {
 	generateParameter(urlSegments) {
 		return {
 			name: this.name,
-			urlSegments: urlSegments
+			getUrlSegments: function() {
+			    return this.urlSegment;
+			}
 		};
 	}
 };

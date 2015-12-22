@@ -30,8 +30,33 @@ module.exports = exports = {
 		if(that.apiKey !== '') {
 			return that.apiKey;
 		} else {
-			Utils.log('API key is not set');
+			this.log('API key is not set');
 			return null;
 		}
-	}
+    },
+
+    generateEndpointRequestUrl: function(urlSegments) {
+        var apiKey = this.getApiKey();
+
+        var requestUrl = urlSegments[0]; // baseUrl
+        requestUrl += '/' + urlSegments[1]; // schemaUrl
+        requestUrl += '/' + urlSegments[2]; // endpointUrl
+        requestUrl += '/' + urlSegments[3]; // apiVersion
+        requestUrl += '?key=' + apiKey; // add apiKey
+
+        return requestUrl;
+    },
+
+    genereateRequestUrl: function(urlSegments, parameters) {
+        var requestUrl = generateEndpointRequestUrl(urlSegments);
+
+        var parameterNames = Object.keys(parameters);
+
+        // append parameters as such: &<param_name>=<param_value>
+        for (var i = 0; i < parameterNames.length; i++) {
+            requestUrl += '&' + parameterNames[i] + '=' + parameters[parameterNames[i]];
+        }
+
+        return requestUrl;
+    }
 };
