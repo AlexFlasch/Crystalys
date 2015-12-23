@@ -1,10 +1,18 @@
-function useStrict() {'use strict';}
+'use strict';
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function useStrict() {}
 
 var rp = require('request-promise');
 var Utils = require('./Utils');
 
-module.exports = class Parameter {
-	constructor(parent, name, url, required) {
+module.exports = (function () {
+	function Parameter(parent, name, url, required) {
+		_classCallCheck(this, Parameter);
+
 		useStrict();
 
 		this.parent = parent;
@@ -20,41 +28,46 @@ module.exports = class Parameter {
 	///
 	/// params: none
 	///
-	sendRequest() {
-		useStrict();
 
-		var requestUrl = '';
+	_createClass(Parameter, [{
+		key: 'sendRequest',
+		value: function sendRequest() {
+			useStrict();
 
-		var baseUrl = 'https://api.steampowered.com/';
-		var apiComponentUrl = this.parent.parent.url;
-		var endpointUrl = this.parent.url;
-		var apiKey = Utils.getApiKey();
-		var parameterStrings = [];
+			var requestUrl = '';
 
-		for(var parameter in this.parent.parameters) {
-			var parameterUrl = parameter.url;
-			var parameterValue = parameter.value;
+			var baseUrl = 'https://api.steampowered.com/';
+			var apiComponentUrl = this.parent.parent.url;
+			var endpointUrl = this.parent.url;
+			var apiKey = Utils.getApiKey();
+			var parameterStrings = [];
 
-			if(parameterValue === null && parameter.required) {
-				Utils.log('the request was not sent due to a required parameter not being given a value.');
-				return;
+			for (var parameter in this.parent.parameters) {
+				var parameterUrl = parameter.url;
+				var parameterValue = parameter.value;
+
+				if (parameterValue === null && parameter.required) {
+					Utils.log('the request was not sent due to a required parameter not being given a value.');
+					return;
+				} else if (parameterValue === null) {
+					continue;
+				}
+
+				var parameterString = '&' + parameterUrl + '=' + parameterValue.toString();
+				parameterStrings.push(parameterString);
 			}
-			else if(parameterValue === null) {
-				continue;
+
+			requestUrl = baseUrl + apiComponentUrl + endpointUrl + '?key=' + apiKey;
+
+			for (var i = 0; i < parameterStrings.length; i++) {
+				requestUrl += parameterStrings[i];
 			}
 
-			var parameterString = '&' + parameterUrl + '=' + parameterValue.toString();
-			parameterStrings.push(parameterString);
+			Utils.log(requestUrl);
+
+			return rp(requestUrl);
 		}
+	}]);
 
-		requestUrl = baseUrl + apiComponentUrl + endpointUrl + '?key=' + apiKey;
-
-		for(var i = 0; i < parameterStrings.length; i++) {
-			requestUrl += parameterStrings[i];
-		}
-
-		Utils.log(requestUrl);
-
-		return rp(requestUrl);
-	}
-};
+	return Parameter;
+})();

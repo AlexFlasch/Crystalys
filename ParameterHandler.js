@@ -1,7 +1,15 @@
-function useStrict() {'use strict';}
+'use strict';
 
-module.exports = class ParameterHandler {
-	constructor(name, urlSegment, required) {
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function useStrict() {}
+
+module.exports = (function () {
+	function ParameterHandler(name, urlSegment, required) {
+		_classCallCheck(this, ParameterHandler);
+
 		useStrict();
 
 		this.name = name;
@@ -9,24 +17,32 @@ module.exports = class ParameterHandler {
 		this.required = required;
 	}
 
-	getName() {
-		return this.name;
-	}
+	_createClass(ParameterHandler, [{
+		key: 'getName',
+		value: function getName() {
+			return this.name;
+		}
+	}, {
+		key: 'getUrlSegment',
+		value: function getUrlSegment() {
+			return this.urlSegment;
+		}
+	}, {
+		key: 'isRequired',
+		value: function isRequired() {
+			return this.required;
+		}
+	}, {
+		key: 'generateParameter',
+		value: function generateParameter(urlSegments) {
+			return {
+				name: this.name,
+				getUrlSegments: function getUrlSegments() {
+					return this.urlSegment;
+				}
+			};
+		}
+	}]);
 
-	getUrlSegment() {
-		return this.urlSegment;
-	}
-
-	isRequired() {
-		return this.required;
-	}
-
-	generateParameter(urlSegments) {
-		return {
-			name: this.name,
-			getUrlSegments: function() {
-			    return this.urlSegment;
-			}
-		};
-	}
-};
+	return ParameterHandler;
+})();

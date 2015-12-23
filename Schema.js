@@ -1,12 +1,20 @@
-function useStrict() {'use strict';}
+'use strict';
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function useStrict() {}
 
 var util = require('util');
 
 var Utils = require('./Utils');
 var Endpoint = require('./Endpoint');
 
-module.exports = class Schema {
-	constructor(name, url) {
+module.exports = (function () {
+	function Schema(name, url) {
+		_classCallCheck(this, Schema);
+
 		useStrict();
 
 		this.name = name;
@@ -28,37 +36,43 @@ module.exports = class Schema {
 	///		endpointUrl:		The string that will be used in the URL segment generated when making a request to the Steam WebAPI.
 	///		needsParameters: 	True if the endpoint requires at least one parameter, false otherwise.
 	///
-	addEndpoint(endpointName, endpointUrl, needsParameters) {
-		useStrict();
 
-		var endpoint = new Endpoint(this, endpointName, endpointUrl);
+	_createClass(Schema, [{
+		key: 'addEndpoint',
+		value: function addEndpoint(endpointName, endpointUrl, needsParameters) {
+			useStrict();
 
-		if(!needsParameters) {
-			var sendRequest = function() {
-				useStrict();
+			var endpoint = new Endpoint(this, endpointName, endpointUrl);
 
-				var requestUrl = '';
+			if (!needsParameters) {
+				var sendRequest = function sendRequest() {
+					useStrict();
 
-				var baseUrl = 'https://api.steampowered.com/';
-				var schemaUrl = this.parent.parent.url;
-				var endpointUrl = this.parent.url;
-				var apiKey = Utils.getApiKey();
+					var requestUrl = '';
 
-				for(var parameter in this.parameters) {
-					if(parameter.required) {
-						Utils.log('the request was not sent due to a required parameter not being given a value.');
-						return;
+					var baseUrl = 'https://api.steampowered.com/';
+					var schemaUrl = this.parent.parent.url;
+					var endpointUrl = this.parent.url;
+					var apiKey = Utils.getApiKey();
+
+					for (var parameter in this.parameters) {
+						if (parameter.required) {
+							Utils.log('the request was not sent due to a required parameter not being given a value.');
+							return;
+						}
 					}
-				}
 
-				requestUrl = baseUrl + schemaUrl + endpointUrl + '?key=' + apiKey;
+					requestUrl = baseUrl + schemaUrl + endpointUrl + '?key=' + apiKey;
 
-				return rp(requestUrl);
-			};
+					return rp(requestUrl);
+				};
 
-			this[endpointName].sendRequest = sendRequest;
+				this[endpointName].sendRequest = sendRequest;
+			}
+
+			return endpoint;
 		}
+	}]);
 
-		return endpoint;
-	}
-};
+	return Schema;
+})();

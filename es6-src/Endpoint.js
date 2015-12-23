@@ -1,11 +1,9 @@
-'use strict';
-
-function useStrict() {}
+function useStrict() {'use strict';}
 
 var rp = require('request-promise');
 var Utils = require('./Utils');
 
-module.exports = function Endpoint() {
+module.exports = function Endpoint () {
     // constructor
     useStrict();
 
@@ -39,4 +37,5 @@ module.exports = function Endpoint() {
 
         return promise;
     }
+	
 };
