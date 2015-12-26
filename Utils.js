@@ -4,11 +4,9 @@ function useStrict() {}
 
 var chalk = require('chalk');
 
-undefined.apiKey = '';
+var apiKey = '';
 
-var that = undefined;
-
-module.exports = exports = {
+module.exports = {
 	log: function log(message) {
 		useStrict();
 
@@ -20,10 +18,10 @@ module.exports = exports = {
 		return JSON.parse(JSON.stringify(obj));
 	},
 
-	setApiKey: function setApiKey(apiKey) {
+	setApiKey: function setApiKey(key) {
 		useStrict();
 
-		that.apiKey = apiKey;
+		apiKey = key;
 	},
 
 	getApiKey: function getApiKey() {
