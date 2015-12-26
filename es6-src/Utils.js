@@ -25,8 +25,8 @@ module.exports = {
 	getApiKey: function() {
 		useStrict();
 
-		if(that.apiKey !== '') {
-			return that.apiKey;
+		if(apiKey !== '') {
+			return apiKey;
 		} else {
 			this.log('API key is not set');
 			return null;
