@@ -37,6 +37,7 @@ module.exports = (function () {
 		value: function generateParameter(urlSegments) {
 			return {
 				name: this.name,
+				urlSegment: this.urlSegment,
 				getUrlSegments: function getUrlSegments() {
 					return this.urlSegment;
 				}

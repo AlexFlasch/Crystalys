@@ -12,6 +12,7 @@ es5/
 
 # Ignored files
 .jshintrc
+test.js
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/

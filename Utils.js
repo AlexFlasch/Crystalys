@@ -47,8 +47,8 @@ module.exports = {
 		return requestUrl;
 	},
 
-	genereateRequestUrl: function genereateRequestUrl(urlSegments, parameters) {
-		var requestUrl = generateEndpointRequestUrl(urlSegments);
+	generateRequestUrl: function generateRequestUrl(urlSegments, parameters) {
+		var requestUrl = this.generateEndpointRequestUrl(urlSegments);
 
 		var parameterNames = Object.keys(parameters);
 

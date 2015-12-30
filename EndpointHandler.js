@@ -68,7 +68,8 @@ module.exports = (function () {
         }
     }, {
         key: 'generateEndpoint',
-        value: function generateEndpoint(urlSegments) {
+        value: function generateEndpoint(segments) {
+            var urlSegments = segments.slice(0); // create shallow copy of array
             urlSegments.push(this.urlSegment);
             urlSegments.push(this.version);
 
@@ -93,21 +94,25 @@ module.exports = (function () {
                     // immediately invoked function to save the proper references to the parameter function
                     (function (param) {
                         endpoint[param.name] = function (value) {
-                            endpoint.values[param.name] = value;
+                            endpoint.values[param.urlSegment] = value;
 
                             return this;
                         };
 
-                        function sendRequest() {
-                            var requestUrl = Utils.generateRequestUrl(endpoint.values);
+                        endpoint.sendRequest = function () {
+                            var requestUrl = Utils.generateRequestUrl(urlSegments, endpoint.values);
 
                             var rpOptions = {
                                 uri: requestUrl,
                                 json: true
                             };
 
-                            return rp(rpOptions);
-                        }
+                            var promise = rp(rpOptions);
+
+                            endpoint.values = {};
+
+                            return promise;
+                        };
                     })(parameter);
                 }
 
@@ -118,35 +123,39 @@ module.exports = (function () {
                     parameter = this.parameters[parameterIndex].generateParameter(urlSegments);
                     endpoint[this.parameters[parameterIndex].getName()] = parameter;
                     endpointParam = endpoint[this.parameters[parameterIndex].getName()];
-                    endpoint.sendRequest = function () {
-                        var requestUrl = Utils.generateEndpointRequestUrl(urlSegments);
-
-                        var rpOptions = {
-                            uri: requestUrl,
-                            json: true
-                        };
-
-                        return rp(rpOptions);
-                    };
+                    // endpoint.sendRequest = function() {
+                    //     const requestUrl = Utils.generateEndpointRequestUrl(urlSegments);
+                    //
+                    //     const rpOptions = {
+                    //         uri: requestUrl,
+                    //         json: true
+                    //     };
+                    //
+                    //     return rp(rpOptions);
+                    // };
 
                     // immediately invoked function to save the proper references to the parameter function
                     (function (param) {
                         endpoint[param.name] = function (value) {
-                            endpoint.values[param.name] = value;
+                            endpoint.values[param.urlSegment] = value;
 
                             return this;
                         };
 
-                        function sendRequest() {
-                            var requestUrl = Utils.generateRequestUrl(endpoint.values);
+                        endpoint.sendRequest = function () {
+                            var requestUrl = Utils.generateRequestUrl(urlSegments, endpoint.values);
 
                             var rpOptions = {
                                 uri: requestUrl,
                                 json: true
                             };
 
-                            return rp(rpOptions);
-                        }
+                            var promise = rp(rpOptions);
+
+                            endpoint.values = {};
+
+                            return promise;
+                        };
                     })(parameter);
                 }
 

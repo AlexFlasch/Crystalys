@@ -1,32 +1,34 @@
 {
-  "name": "crystalys",
-  "version": "0.1.6",
+  "author": "Flascher flascherdev@gmail.com",
+  "bugs": {
+    "url": "https://github.com/Flascher/Crystalys/issues"
+  },
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "request-promise": "^1.0.2"
+  },
   "description": "A wrapper for Valve's DOTA2 WebAPI that uses promises and ES6 techniques!",
-  "main": "crystalys.js",
-  "scripts": {
-    "test": "node --use_strict test.js",
-    "run": "node crystalys.js"
+  "devDependencies": {
+    "babel-preset-es2015": "^6.3.13"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Flascher/Crystalys.git"
-  },
+  "homepage": "https://github.com/Flascher/Crystalys#readme",
   "keywords": [
     "DOTA2",
     "api",
     "promise"
   ],
-  "author": "Flascher flascherdev@gmail.com",
   "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/Flascher/Crystalys/issues"
+  "main": "crystalys.js",
+  "name": "crystalys",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Flascher/Crystalys.git"
   },
-  "homepage": "https://github.com/Flascher/Crystalys#readme",
-  "dependencies": {
-    "chalk": "^1.1.1",
-    "request-promise": "^1.0.2"
+  "scripts": {
+    "prepublish": "babel es6-src\\ --out-dir ..\\Crystalys",
+    "pretest": "babel es6-src\\ --out-dir ..\\Crystalys",
+    "run": "node crystalys.js",
+    "test": "node test.js"
   },
-  "devDependencies": {
-    "babel-preset-es2015": "^6.3.13"
-  }
+  "version": "0.1.6"
 }
