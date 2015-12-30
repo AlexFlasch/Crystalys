@@ -9,6 +9,7 @@ Desktop.ini
 node_modules/
 es5/
 .vscode/
+.vs/
 
 # Ignored files
 .jshintrc
