@@ -4,12 +4,12 @@ A wrapper for Valve's DOTA2 WebAPI that uses promises and ES6 techniques!
 **_Before you use Crystalys, please note:_** Crystalys is still being developed and does not yet have a stable release.
 
 ## Installing
--------------
+
 To install Crystalys install it using npm just as you would for any other npm package
 `npm install crystalys`
 
 ## Using Crystalys
-------------------
+
 In order to use Crystalys you **must** have a Steam API key which you can grab from [here](https://steamcommunity.com/dev/apikey).
 Also note that if you don't have a Steam account, you will need one in order to retrieve an API key.
 
@@ -31,7 +31,9 @@ promise.then(function(response) {
 ```
 
 In order to pass parameters you can tack function calls on the endpoint before the sendRequest call like so:
-`var promise = api.Match.GetMatchHistory.heroID(1).matchesRequested(300).sendRequest()`
+```javascript
+var promise = api.Match.GetMatchHistory.heroID(1).matchesRequested(300).sendRequest()
+```
 
 This will grab the most 300 matches with Antimage in them (heroID 1) A JSON file with KV pairs for Hero name to HeroID will likely be
 added in a future update.
