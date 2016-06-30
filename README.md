@@ -42,8 +42,8 @@ In order to pass parameters you can tack function calls on the endpoint before t
 var promise = api.Match.GetMatchHistory.heroID(1).matchesRequested(300).sendRequest()
 ```
 
-This will grab the most 300 matches with Antimage in them (heroID 1) A JSON file with KV pairs for Hero name to HeroID will likely be
-added in a future update.
+This will grab the most recent 300 matches with Antimage in them (heroID 1) A JSON file with KV pairs for 
+Hero name to HeroID will likely be added in a future update.
 
 For a good reference on the current Steam API I recommend [this](http://steamwebapi.azurewebsites.net/) site over the
 official documentation on the TF2 wiki.
