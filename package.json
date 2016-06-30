@@ -30,5 +30,5 @@
     "run": "node crystalys.js",
     "test": "node test.js"
   },
-  "version": "0.1.8"
+  "version": "0.2.0"
 }
