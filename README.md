@@ -1,6 +1,6 @@
 # Crystalys
 A wrapper for Valve's DOTA2 Web API.
-Crystalys is part of the [Daedalus](https://github.com/Flascher/Daedalus) tool suite.
+Crystalys is part of the [Daedalus](https://github.com/Flascher/Daedalus) suite.
 Crystalys is intended for server-side requests, while Demon Edge (not yet in development) will handle client-side requests.
 The Daedalus npm package is a deployable API server written with express.js.
 
@@ -15,6 +15,10 @@ To install Crystalys install it using npm just as you would for any other npm pa
 
 In order to use Crystalys you **must** have a Steam API key which you can grab from [here](https://steamcommunity.com/dev/apikey).
 Also note that if you don't have a Steam account, you will need one in order to retrieve an API key.
+
+Valve's terms of use for their API states that you **must** make your API calls from the server-side, 
+or redirect your client-side calls to your own server. Crystalys is only intended to make calls server-side.
+Client-side calls can be made from another tool in the Daedalus suite Demon Edge (link will be provided once its made!)
 
 Once you've got your very own API key, you can start to actually use Crystalys!
 
