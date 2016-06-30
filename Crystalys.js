@@ -37,6 +37,11 @@ module.exports = (function () {
 
             return this; // allow chaining
         }
+    }, {
+        key: 'getApiKey',
+        value: function getApiKey() {
+            return Utils.getApiKey();
+        }
     }]);
 
     return crystalys;

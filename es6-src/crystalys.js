@@ -133,4 +133,8 @@ module.exports = class crystalys {
 
 		return this; // allow chaining
 	}
+
+	getApiKey() {
+		return Utils.getApiKey();
+	}
 };
