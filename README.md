@@ -1,5 +1,8 @@
 # Crystalys
-A wrapper for Valve's DOTA2 WebAPI that uses promises and ES6 techniques!
+A wrapper for Valve's DOTA2 Web API.
+Crystalys is part of the [Daedalus](https://github.com/Flascher/Daedalus) tool suite.
+Crystalys is intended for server-side requests, while Demon Edge (not yet in development) will handle client-side requests.
+The Daedalus npm package is a deployable API server written with express.js.
 
 **_Before you use Crystalys, please note:_** Crystalys is still being developed and does not yet have a stable release.
 
