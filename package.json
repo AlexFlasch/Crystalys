@@ -17,7 +17,7 @@
     "api",
     "promise"
   ],
-  "license": "GPL-3.0",
+  "license": "MIT",
   "main": "crystalys.js",
   "name": "crystalys",
   "repository": {
