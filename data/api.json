@@ -218,6 +218,23 @@
 					]
 				},
 				{
+					"name": "GetTopWeekendTourneyGames",
+					"urlSegment": "GetTopWeekendTourneyGames",
+					"parameterRequired": true,
+					"parameters": [
+						{
+							"name": "partner",
+							"urlSegment": "partner",
+							"required": true
+						},
+						{
+							"name": "homeDivision",
+							"urlSegment": "home_division",
+							"required": false
+						}
+					]
+				},
+				{
 					"name": "GetTournamentPlayerStats",
 					"urlSegment": "GetTournamentPlayerStats",
 					"parameterRequired": true,
@@ -280,9 +297,61 @@
 			]
 		},
 		{
+			"name": "Teams",
+			"urlSegment": "IDOTA2Teams_570",
+			"endpoints": [
+				{
+					"name": "GetTeamInfo",
+					"urlSegment": "GetTeamInfo",
+					"parameterRequired": false,
+					"parameters": [
+						{
+							"name": "teamID",
+							"urlSegment": "team_id",
+							"required": false
+						},
+						{
+							"name": "leagueID",
+							"urlSegment": "league_id",
+							"required": false
+						}
+					]
+				}
+			]
+		},
+		{
 			"name": "Ticket",
 			"urlSegment": "IDOTA2Ticket_570",
 			"endpoints": [
+				{
+					"name": "ClaimBadgeReward",
+					"urlSegment": "ClaimBadgeReward",
+					"parameterRequired": true,
+					"parameters": [
+						{
+							"name": "eventID",
+							"urlSegment": "eventid",
+							"required": true
+						},
+						{
+							"name": "badgeID",
+							"urlSegment": "BadgeID",
+							"required": true
+						}
+					]
+				},
+				{
+					"name": "GetSteamIDForBadgeID",
+					"urlSegment": "GetSteamIDForBadgeID",
+					"parameterRequired": true,
+					"parameters": [
+						{
+							"name": "badgeID",
+							"urlSegment": "BadgeID",
+							"required": true
+						}
+					]
+				},
 				{
 					"name": "SetSteamAccountPurchased",
 					"urlSegment": "SetSteamAccountPurchased",

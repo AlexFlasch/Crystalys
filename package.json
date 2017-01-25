@@ -4,6 +4,7 @@
     "url": "https://github.com/Flascher/Crystalys/issues"
   },
   "dependencies": {
+    "axios": "^0.15.3",
     "chalk": "^1.1.1",
     "core-js": "^2.4.1"
   },
