@@ -1,9 +1,5 @@
-function useStrict() {'use strict';}
-
 module.exports = class ApiHandler {
 	constructor() {
-        useStrict();
-
 	    this.urlSegment = 'https://api.steampowered.com';
 
 		this.schemas = [];
@@ -37,8 +33,6 @@ module.exports = class ApiHandler {
 };
 
 function generateApi(apiHandler) {
-	useStrict();
-
 	var api = {};
     var baseUrl = 'https://api.steampowered.com';
     api.getUrlSegments = function() {

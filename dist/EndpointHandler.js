@@ -1,20 +1,14 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function useStrict() {}
-
-var util = require('util');
-var rp = require('request-promise');
 var Utils = require('./Utils');
 
-module.exports = (function () {
+module.exports = function () {
     function EndpointHandler(name, urlSegment, version, needsParams) {
         _classCallCheck(this, EndpointHandler);
-
-        useStrict();
 
         this.name = name;
         this.urlSegment = urlSegment;
@@ -81,8 +75,8 @@ module.exports = (function () {
             };
 
             var parameterIndex = 0;
-            var parameter = undefined;
-            var endpointParam = undefined;
+            var parameter = void 0;
+            var endpointParam = void 0;
 
             if (this.needsParams) {
                 // generate the endpoint with the parameters but no sendRequest function
@@ -123,16 +117,6 @@ module.exports = (function () {
                     parameter = this.parameters[parameterIndex].generateParameter(urlSegments);
                     endpoint[this.parameters[parameterIndex].getName()] = parameter;
                     endpointParam = endpoint[this.parameters[parameterIndex].getName()];
-                    // endpoint.sendRequest = function() {
-                    //     const requestUrl = Utils.generateEndpointRequestUrl(urlSegments);
-                    //
-                    //     const rpOptions = {
-                    //         uri: requestUrl,
-                    //         json: true
-                    //     };
-                    //
-                    //     return rp(rpOptions);
-                    // };
 
                     // immediately invoked function to save the proper references to the parameter function
                     (function (param) {
@@ -150,7 +134,7 @@ module.exports = (function () {
                                 json: true
                             };
 
-                            var promise = rp(rpOptions);
+                            var promise = Utils.generatePromise(rpOptions);
 
                             endpoint.values = {};
 
@@ -167,4 +151,4 @@ module.exports = (function () {
     }]);
 
     return EndpointHandler;
-})();
+}();

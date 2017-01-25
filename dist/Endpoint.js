@@ -1,9 +1,10 @@
-function useStrict() {'use strict';}
+'use strict';
 
-var rp = require('request-promise');
+function useStrict() {}
+
 var Utils = require('./Utils');
 
-module.exports = function Endpoint () {
+module.exports = function Endpoint() {
     // constructor
     useStrict();
 
@@ -33,9 +34,8 @@ module.exports = function Endpoint () {
     // will generate the request URL and send the request via a promise, then return the promise obj.
     function sendRequest() {
         var requestUrl = generateRequestUrl(urlSegments);
-        var promise = rp(requestUrl);
+        var promise = Utils.generatePromise(requestUrl);
 
         return promise;
     }
-	
 };

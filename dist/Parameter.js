@@ -1,15 +1,13 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function useStrict() {}
 
 var rp = require('request-promise');
 var Utils = require('./Utils');
 
-module.exports = (function () {
+module.exports = function () {
 	function Parameter(parent, name, url, required) {
 		_classCallCheck(this, Parameter);
 
@@ -29,17 +27,17 @@ module.exports = (function () {
 	/// params: none
 	///
 
+
 	_createClass(Parameter, [{
 		key: 'sendRequest',
 		value: function sendRequest() {
-			useStrict();
-
 			var requestUrl = '';
 
 			var baseUrl = 'https://api.steampowered.com/';
 			var apiComponentUrl = this.parent.parent.url;
-			var endpointUrl = this.parent.url;
 			var apiKey = Utils.getApiKey();
+
+			var endpointUrl = this.parent.url;
 			var parameterStrings = [];
 
 			for (var parameter in this.parent.parameters) {
@@ -63,11 +61,9 @@ module.exports = (function () {
 				requestUrl += parameterStrings[i];
 			}
 
-			Utils.log(requestUrl);
-
-			return rp(requestUrl);
+			return generatePromise(requestUrl);
 		}
 	}]);
 
 	return Parameter;
-})();
+}();

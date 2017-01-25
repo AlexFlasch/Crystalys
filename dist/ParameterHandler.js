@@ -1,16 +1,12 @@
-'use strict';
+"use strict";
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function useStrict() {}
-
-module.exports = (function () {
+module.exports = function () {
 	function ParameterHandler(name, urlSegment, required) {
 		_classCallCheck(this, ParameterHandler);
-
-		useStrict();
 
 		this.name = name;
 		this.urlSegment = urlSegment;
@@ -18,22 +14,22 @@ module.exports = (function () {
 	}
 
 	_createClass(ParameterHandler, [{
-		key: 'getName',
+		key: "getName",
 		value: function getName() {
 			return this.name;
 		}
 	}, {
-		key: 'getUrlSegment',
+		key: "getUrlSegment",
 		value: function getUrlSegment() {
 			return this.urlSegment;
 		}
 	}, {
-		key: 'isRequired',
+		key: "isRequired",
 		value: function isRequired() {
 			return this.required;
 		}
 	}, {
-		key: 'generateParameter',
+		key: "generateParameter",
 		value: function generateParameter(urlSegments) {
 			return {
 				name: this.name,
@@ -46,4 +42,4 @@ module.exports = (function () {
 	}]);
 
 	return ParameterHandler;
-})();
+}();

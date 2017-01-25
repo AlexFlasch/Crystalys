@@ -1,9 +1,5 @@
-function useStrict() {'use strict';}
-
 module.exports = class ParameterHandler {
 	constructor(name, urlSegment, required) {
-		useStrict();
-
 		this.name = name;
 		this.urlSegment = urlSegment;
 		this.required = required;
@@ -25,7 +21,7 @@ module.exports = class ParameterHandler {
 		return {
 			name: this.name,
 			urlSegment: this.urlSegment,
-			getUrlSegments: function() {
+			getUrlSegments() {
 			    return this.urlSegment;
 			}
 		};

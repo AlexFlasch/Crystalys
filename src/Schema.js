@@ -1,14 +1,8 @@
-function useStrict() {'use strict';}
-
-var util = require('util');
-
 var Utils = require('./Utils');
 var Endpoint = require('./Endpoint');
 
 module.exports = class Schema {
 	constructor(name, url) {
-		useStrict();
-
 		this.name = name;
 		this.url = url;
 
@@ -29,22 +23,18 @@ module.exports = class Schema {
 	///		needsParameters: 	True if the endpoint requires at least one parameter, false otherwise.
 	///
 	addEndpoint(endpointName, endpointUrl, needsParameters) {
-		useStrict();
-
-		var endpoint = new Endpoint(this, endpointName, endpointUrl);
+		let endpoint = new Endpoint(this, endpointName, endpointUrl);
 
 		if(!needsParameters) {
 			var sendRequest = function() {
-				useStrict();
+				let requestUrl = '';
 
-				var requestUrl = '';
+				const baseUrl = 'https://api.steampowered.com/';
+				const schemaUrl = this.parent.parent.url;
+				const endpointUrl = this.parent.url;
+				const apiKey = Utils.getApiKey();
 
-				var baseUrl = 'https://api.steampowered.com/';
-				var schemaUrl = this.parent.parent.url;
-				var endpointUrl = this.parent.url;
-				var apiKey = Utils.getApiKey();
-
-				for(var parameter in this.parameters) {
+				for(const parameter in this.parameters) {
 					if(parameter.required) {
 						Utils.log('the request was not sent due to a required parameter not being given a value.');
 						return;
@@ -53,7 +43,7 @@ module.exports = class Schema {
 
 				requestUrl = baseUrl + schemaUrl + endpointUrl + '?key=' + apiKey;
 
-				return rp(requestUrl);
+				return generatePromise(requestUrl);
 			};
 
 			this[endpointName].sendRequest = sendRequest;

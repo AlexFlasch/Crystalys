@@ -1,5 +1,3 @@
-function useStrict() {'use strict';}
-
 var rp = require('request-promise');
 var Utils = require('./Utils');
 
@@ -21,17 +19,16 @@ module.exports = class Parameter {
 	/// params: none
 	///
 	sendRequest() {
-		useStrict();
+		let requestUrl = '';
 
-		var requestUrl = '';
+		const baseUrl = 'https://api.steampowered.com/';
+		const apiComponentUrl = this.parent.parent.url;
+		const apiKey = Utils.getApiKey();
 
-		var baseUrl = 'https://api.steampowered.com/';
-		var apiComponentUrl = this.parent.parent.url;
-		var endpointUrl = this.parent.url;
-		var apiKey = Utils.getApiKey();
-		var parameterStrings = [];
+		let endpointUrl = this.parent.url;
+		let parameterStrings = [];
 
-		for(var parameter in this.parent.parameters) {
+		for(const parameter in this.parent.parameters) {
 			var parameterUrl = parameter.url;
 			var parameterValue = parameter.value;
 
@@ -49,12 +46,10 @@ module.exports = class Parameter {
 
 		requestUrl = baseUrl + apiComponentUrl + endpointUrl + '?key=' + apiKey;
 
-		for(var i = 0; i < parameterStrings.length; i++) {
+		for(let i = 0; i < parameterStrings.length; i++) {
 			requestUrl += parameterStrings[i];
 		}
 
-		Utils.log(requestUrl);
-
-		return rp(requestUrl);
+		return generatePromise(requestUrl);
 	}
 };

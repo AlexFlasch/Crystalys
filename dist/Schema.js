@@ -1,21 +1,15 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function useStrict() {}
-
-var util = require('util');
 
 var Utils = require('./Utils');
 var Endpoint = require('./Endpoint');
 
-module.exports = (function () {
+module.exports = function () {
 	function Schema(name, url) {
 		_classCallCheck(this, Schema);
-
-		useStrict();
 
 		this.name = name;
 		this.url = url;
@@ -37,17 +31,14 @@ module.exports = (function () {
 	///		needsParameters: 	True if the endpoint requires at least one parameter, false otherwise.
 	///
 
+
 	_createClass(Schema, [{
 		key: 'addEndpoint',
 		value: function addEndpoint(endpointName, endpointUrl, needsParameters) {
-			useStrict();
-
 			var endpoint = new Endpoint(this, endpointName, endpointUrl);
 
 			if (!needsParameters) {
 				var sendRequest = function sendRequest() {
-					useStrict();
-
 					var requestUrl = '';
 
 					var baseUrl = 'https://api.steampowered.com/';
@@ -64,7 +55,7 @@ module.exports = (function () {
 
 					requestUrl = baseUrl + schemaUrl + endpointUrl + '?key=' + apiKey;
 
-					return rp(requestUrl);
+					return generatePromise(requestUrl);
 				};
 
 				this[endpointName].sendRequest = sendRequest;
@@ -75,4 +66,4 @@ module.exports = (function () {
 	}]);
 
 	return Schema;
-})();
+}();

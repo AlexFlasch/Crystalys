@@ -1,13 +1,7 @@
-function useStrict() { 'use strict'; }
-
-var util = require('util');
-var rp = require('request-promise');
 var Utils = require('./Utils');
 
 module.exports = class EndpointHandler {
 	constructor(name, urlSegment, version, needsParams) {
-		useStrict();
-
 		this.name = name;
 		this.urlSegment = urlSegment;
         this.version = 'v' + version;
@@ -99,21 +93,12 @@ module.exports = class EndpointHandler {
             }
 
             endpoint.requestable = false;
-		} else { // generate the endpoint with the parameters but also with a sendRequest function
+		} else {
+			// generate the endpoint with the parameters but also with a sendRequest function
 			for(parameterIndex = 0; parameterIndex < this.parameters.length; parameterIndex++) {
 			    parameter = this.parameters[parameterIndex].generateParameter(urlSegments);
                 endpoint[this.parameters[parameterIndex].getName()] = parameter;
 			    endpointParam = endpoint[this.parameters[parameterIndex].getName()];
-			    // endpoint.sendRequest = function() {
-			    //     const requestUrl = Utils.generateEndpointRequestUrl(urlSegments);
-				//
-			    //     const rpOptions = {
-                //         uri: requestUrl,
-                //         json: true
-			    //     };
-				//
-			    //     return rp(rpOptions);
-			    // };
 
                 // immediately invoked function to save the proper references to the parameter function
                 (function (param) {
@@ -131,7 +116,7 @@ module.exports = class EndpointHandler {
                             json: true
                         };
 
-                        var promise = rp(rpOptions);
+                        var promise = Utils.generatePromise(rpOptions);
 
                         endpoint.values = {};
 
