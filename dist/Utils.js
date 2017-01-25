@@ -1,7 +1,6 @@
 'use strict';
 
 var chalk = require('chalk');
-var core = require('core-js/library');
 
 var apiKey = '';
 
@@ -48,37 +47,33 @@ module.exports = {
 		return requestUrl;
 	},
 	generatePromise: function generatePromise(url) {
-		console.log(url.uri);
+		// console.log(url.uri);
 
-		return new Promise(function (resolve, reject) {
-			var lib = core.String.startsWith(url.uri, 'https') ? require('https') : require('http');
+		// return new Promise((resolve, reject) => {
+		// 	const lib = core.String.startsWith(url.uri, 'https') ? require('https') : require('http');
+		//
+		// 	const options = url.uri;
+		//
+		// 	const request = lib.request(url, (response) => {
+		// 		// handle http errors
+		// 	    if (response.statusCode < 200 || response.statusCode > 299) {
+		// 	    	reject(new Error('Failed to load page, status code: ' + response.statusCode));
+		// 	    }
+		//
+		// 		// temporary data holder
+		// 		const body = [];
+		//
+		// 		// on every content chunk, push it to the data array
+		// 		response.on('data', (chunk) => body.push(chunk));
+		//
+		// 		// we are done, resolve promise with those joined chunks
+		// 		response.on('end', () => resolve(body.join('')));
+		//     });
+		//
+		//     // handle connection errors of the request
+		//     request.on('error', (err) => reject(err))
+		// });
 
-			var options = url.uri;
-
-			var request = lib.request(url, function (response) {
-				// handle http errors
-				if (response.statusCode < 200 || response.statusCode > 299) {
-					reject(new Error('Failed to load page, status code: ' + response.statusCode));
-				}
-
-				// temporary data holder
-				var body = [];
-
-				// on every content chunk, push it to the data array
-				response.on('data', function (chunk) {
-					return body.push(chunk);
-				});
-
-				// we are done, resolve promise with those joined chunks
-				response.on('end', function () {
-					return resolve(body.join(''));
-				});
-			});
-
-			// handle connection errors of the request
-			request.on('error', function (err) {
-				return reject(err);
-			});
-		});
+		return axios.get(url);
 	}
 };
