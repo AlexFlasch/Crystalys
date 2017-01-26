@@ -67,8 +67,6 @@ class Crystalys {
 
 		const temp = apiHandler.getApi();
 
-		util.inspect(temp);
-
 		return temp;
 	}
 

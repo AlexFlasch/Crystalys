@@ -1,0 +1,490 @@
+{
+	"apiVersion": 1,
+	"urlSegment": "api",
+	"schemas": [
+		{
+			"name": "Fantasy",
+			"urlSegment": "IDOTA2Fantasy_570",
+			"endpoints": [
+				{
+					"name": "GetFantasyPlayerStats",
+					"urlSegment": "GetFantasyPlayerStats",
+					"parameterRequired": true,
+					"parameters": [
+						{
+							"name": "fantasyLeagueID",
+							"urlSegment": "FantasyLeagueID",
+							"required": true
+						},
+						{
+							"name": "startTime",
+							"urlSegment": "StartTime",
+							"required": false
+						},
+						{
+							"name": "endTime",
+							"urlSegment": "EndTime",
+							"required": false
+						},
+						{
+							"name": "matchID",
+							"urlSegment": "matchid",
+							"required": false
+						},
+						{
+							"name": "seriesID",
+							"urlSegment": "SeriesID",
+							"required": false
+						},
+						{
+							"name": "playerAccountID",
+							"urlSegment": "PlayerAccountID",
+							"required": false
+						}
+					]
+				},
+				{
+					"name": "GetPlayerOfficialInfo",
+					"urlSegment": "GetPlayerOfficialInfo",
+					"parameterRequired": true,
+					"parameters": [
+						{
+							"name": "accountID",
+							"urlSegment": "accountid",
+							"required": true
+						}
+					]
+				},
+				{
+					"name": "GetProPlayerList",
+					"urlSegment": "GetProPlayerList",
+					"parameterRequired": false,
+					"parameters": []
+				}
+			]
+		},
+		{
+			"name": "Match",
+			"urlSegment": "IDOTA2Match_570",
+			"endpoints": [
+				{
+					"name": "GetLeagueListing",
+					"urlSegment": "GetLeagueListing",
+					"parameterRequired": false,
+					"parameters": []
+				},
+				{
+					"name": "GetLiveLeagueGames",
+					"urlSegment": "GetLiveLeagueGames",
+					"parameterRequired": false,
+					"parameters": [
+						{
+							"name": "leagueID",
+							"urlSegment": "league_id",
+							"required": false
+						},
+						{
+							"name": "matchID",
+							"urlSegment": "match_id",
+							"required": false
+						}
+					]
+				},
+				{
+					"name": "GetMatchDetails",
+					"urlSegment": "GetMatchDetails",
+					"parameterRequired": true,
+					"parameters": [
+						{
+							"name": "matchID",
+							"urlSegment": "match_id",
+							"required": true
+						}
+					]
+				},
+				{
+					"name": "GetMatchHistory",
+					"urlSegment": "GetMatchHistory",
+					"parameterRequired": false,
+					"parameters": [
+						{
+							"name": "heroID",
+							"urlSegment": "hero_id",
+							"required": false
+						},
+						{
+							"name": "gameMode",
+							"urlSegment": "game_mode",
+							"required": false
+						},
+						{
+							"name": "skill",
+							"urlSegment": "skill",
+							"required": false
+						},
+						{
+							"name": "minPlayers",
+							"urlSegment": "min_players",
+							"required": false
+						},
+						{
+							"name": "accountID",
+							"urlSegment": "account_id",
+							"required": false
+						},
+						{
+							"name": "leagueID",
+							"urlSegment": "league_id",
+							"required": false
+						},
+						{
+							"name": "startAtMatchID",
+							"urlSegment": "start_at_match_id",
+							"required": false
+						},
+						{
+							"name": "matchesRequested",
+							"urlSegment": "matches_requested",
+							"required": false
+						},
+						{
+							"name": "tournamentGamesOnly",
+							"urlSegment": "tournament_games_only",
+							"required": false
+						}
+					]
+				},
+				{
+					"name": "GetMatchHistoryBySequenceNumber",
+					"urlSegment": "GetMatchHistoryBySequenceNum",
+					"parameterRequired": false,
+					"parameters": [
+						{
+							"name": "startAtMatchSequenceNumber",
+							"urlSegment": "start_at_match_seq_num",
+							"required": false
+						},
+						{
+							"name": "matchesRequested",
+							"urlSegment": "matches_requested",
+							"required": "false"
+						}
+					]
+				},
+				{
+					"name": "GetScheduledLeagueGames",
+					"urlSegment": "GetScheduledLeagueGames",
+					"parameterRequired": false,
+					"parameters": [
+						{
+							"name": "startDate",
+							"urlSegment": "date_min",
+							"required": false
+						},
+						{
+							"name": "endDate",
+							"urlSegment": "date_max",
+							"required": false
+						}
+					]
+				},
+				{
+					"name": "GetTeamInfoByTeamID",
+					"urlSegment": "GetTeamInfoByTeamID",
+					"parameterRequired": false,
+					"parameters": [
+						{
+							"name": "startAtTeamID",
+							"urlSegment": "start_at_team_id",
+							"required": false
+						},
+						{
+							"name": "teamsRequested",
+							"urlSegment": "teams_requested",
+							"required": false
+						}
+					]
+				},
+				{
+					"name": "GetTopLiveGame",
+					"urlSegment": "GetTopLiveGame",
+					"parameterRequired": true,
+					"parameters": [
+						{
+							"name": "partner",
+							"urlSegment": "partner",
+							"required": true
+						}
+					]
+				},
+				{
+					"name": "GetTopWeekendTourneyGames",
+					"urlSegment": "GetTopWeekendTourneyGames",
+					"parameterRequired": true,
+					"parameters": [
+						{
+							"name": "partner",
+							"urlSegment": "partner",
+							"required": true
+						},
+						{
+							"name": "homeDivision",
+							"urlSegment": "home_division",
+							"required": false
+						}
+					]
+				},
+				{
+					"name": "GetTournamentPlayerStats",
+					"urlSegment": "GetTournamentPlayerStats",
+					"parameterRequired": true,
+					"parameters": [
+						{
+							"name": "accountID",
+							"urlSegment": "account_id",
+							"required": true
+						},
+						{
+							"name": "leagueID",
+							"urlSegment": "league_id",
+							"required": false
+						},
+						{
+							"name": "heroID",
+							"urlSegment": "hero_id",
+							"required": false
+						},
+						{
+							"name": "timeFrame",
+							"urlSegment": "time_frame",
+							"required": false
+						},
+						{
+							"name": "matchID",
+							"urlSegment": "match_id",
+							"required": false
+						},
+						{
+							"name": "phaseID",
+							"urlSegment": "phase_id",
+							"required": false
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "StreamSystem",
+			"urlSegment": "IDOTA2StreamSystem_570",
+			"endpoints": [
+				{
+					"name": "GetBroadcasterInfo",
+					"urlSegment": "GetBroadcasterInfo",
+					"parameterRequired": true,
+					"parameters": [
+						{
+							"name": "broadcasterSteamID",
+							"urlSegment": "broadcaster_steam_id",
+							"required": true
+						},
+						{
+							"name": "leagueID",
+							"urlSegment": "league_id",
+							"required": false
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Teams",
+			"urlSegment": "IDOTA2Teams_570",
+			"endpoints": [
+				{
+					"name": "GetTeamInfo",
+					"urlSegment": "GetTeamInfo",
+					"parameterRequired": false,
+					"parameters": [
+						{
+							"name": "teamID",
+							"urlSegment": "team_id",
+							"required": false
+						},
+						{
+							"name": "leagueID",
+							"urlSegment": "league_id",
+							"required": false
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Ticket",
+			"urlSegment": "IDOTA2Ticket_570",
+			"endpoints": [
+				{
+					"name": "ClaimBadgeReward",
+					"urlSegment": "ClaimBadgeReward",
+					"parameterRequired": true,
+					"parameters": [
+						{
+							"name": "eventID",
+							"urlSegment": "eventid",
+							"required": true
+						},
+						{
+							"name": "badgeID",
+							"urlSegment": "BadgeID",
+							"required": true
+						}
+					]
+				},
+				{
+					"name": "GetSteamIDForBadgeID",
+					"urlSegment": "GetSteamIDForBadgeID",
+					"parameterRequired": true,
+					"parameters": [
+						{
+							"name": "badgeID",
+							"urlSegment": "BadgeID",
+							"required": true
+						}
+					]
+				},
+				{
+					"name": "SetSteamAccountPurchased",
+					"urlSegment": "SetSteamAccountPurchased",
+					"parameterRequired": true,
+					"parameters": [
+						{
+							"name": "eventID",
+							"urlSegment": "eventid",
+							"required": true
+						},
+						{
+							"name": "steamID",
+							"urlSegment": "steamid",
+							"required": true
+						}
+					]
+				},
+				{
+					"name": "SteamAccountValidForEvent",
+					"urlSegment": "SteamAccountValidForEvent",
+					"parameterRequired": true,
+					"parameters": [
+						{
+							"name": "eventID",
+							"urlSegment": "eventid",
+							"required": true
+						},
+						{
+							"name": "steamID",
+							"urlSegment": "steamid",
+							"required": true
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Economy",
+			"urlSegment": "IEconDOTA2_570",
+			"endpoints": [
+				{
+					"name": "GetEventStatsForAccount",
+					"urlSegment": "GetEventStatsForAccount",
+					"parameterRequired": true,
+					"parameters": [
+						{
+							"name": "eventID",
+							"urlSegment": "eventid",
+							"required": true
+						},
+						{
+							"name": "accountID",
+							"urlSegment": "accountid",
+							"required": true
+						},
+						{
+							"name": "language",
+							"urlSegment": "language",
+							"required": false
+						}
+					]
+				},
+				{
+					"name": "GetGameItems",
+					"urlSegment": "GetGameItems",
+					"parameterRequired": false,
+					"parameters": [
+						{
+							"name": "language",
+							"urlSegment": "language",
+							"required": false
+						}
+					]
+				},
+				{
+					"name": "GetHeroes",
+					"urlSegment": "GetHeroes",
+					"parameterRequired": false,
+					"parameters": [
+						{
+							"name": "language",
+							"urlSegment": "language",
+							"required": false
+						},
+						{
+							"name": "itemizedOnly",
+							"urlSegment": "itemizedonly",
+							"required": false
+						}
+					]
+				},
+				{
+					"name": "GetItemIconPath",
+					"urlSegment": "GetItemIconPath",
+					"parameterRequired": true,
+					"parameters": [
+						{
+							"name": "iconName",
+							"urlSegment": "iconname",
+							"required": true
+						},
+						{
+							"name": "iconType",
+							"urlSegment": "icontype",
+							"required": false
+						}
+					]
+				},
+				{
+					"name": "GetRarities",
+					"urlSegment": "GetRarities",
+					"parameterRequired": false,
+					"parameters": [
+						{
+							"name": "language",
+							"urlSegment": "language",
+							"required": false
+						}
+					]
+				},
+				{
+					"name": "GetTournamentPrizePool",
+					"urlSegment": "GetTournamentPrizePool",
+					"parameterRequired": false,
+					"parameters": [
+						{
+							"name": "leagueID",
+							"urlSegment": "leagueid",
+							"required": false
+						}
+					]
+				}
+			]
+		}
+	]
+}
