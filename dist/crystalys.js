@@ -66,8 +66,6 @@ var Crystalys = function () {
 
 			var temp = apiHandler.getApi();
 
-			util.inspect(temp);
-
 			return temp;
 		}
 	}, {

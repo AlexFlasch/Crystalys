@@ -40,6 +40,11 @@ module.exports = function () {
             return this.version;
         }
     }, {
+        key: 'setValues',
+        value: function setValues(values) {
+            this.values = values;
+        }
+    }, {
         key: 'needsParameters',
         value: function needsParameters() {
             return this.needsParameters;
@@ -96,14 +101,7 @@ module.exports = function () {
                         endpoint.sendRequest = function () {
                             var requestUrl = Utils.generateRequestUrl(urlSegments, endpoint.values);
 
-                            var rpOptions = {
-                                uri: requestUrl,
-                                json: true
-                            };
-
-                            var promise = rp(rpOptions);
-
-                            endpoint.values = {};
+                            var promise = Utils.generatePromise();
 
                             return promise;
                         };

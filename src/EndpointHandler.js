@@ -1,40 +1,44 @@
 var Utils = require('./Utils');
 
 module.exports = class EndpointHandler {
-	constructor(name, urlSegment, version, needsParams) {
-		this.name = name;
-		this.urlSegment = urlSegment;
+    constructor(name, urlSegment, version, needsParams) {
+        this.name = name;
+        this.urlSegment = urlSegment;
         this.version = 'v' + version;
-	    this.needsParams = needsParams;
-	    if (this.needsParams === undefined) this.needsParams = true; // default value
+        this.needsParams = needsParams;
+        if (this.needsParams === undefined) this.needsParams = true; // default value
 
-		this.parameters = [];
-	}
+        this.parameters = [];
+    }
 
-	getName() {
-		return this.name;
+    getName() {
+        return this.name;
     }
 
     getParameters() {
         return this.parameters;
     }
 
-	getUrlSegment() {
-		return this.urlSegment;
+    getUrlSegment() {
+        return this.urlSegment;
     }
 
     getSteamWebApiVersion() {
         return this.version;
     }
 
-	needsParameters() {
-		return this.needsParameters;
-	}
+    setValues(values) {
+        this.values = values;
+    }
+
+    needsParameters() {
+        return this.needsParameters;
+    }
 
 	addParameter(parameterHandler) {
-		this.parameters.push(parameterHandler);
+        this.parameters.push(parameterHandler);
 
-		return this; // allow chaining
+        return this; // allow chaining
     }
 
     addParameters(parameterHandlers) {
@@ -45,23 +49,23 @@ module.exports = class EndpointHandler {
         return this; // allow chaining
     }
 
-	generateEndpoint(segments) {
-		var urlSegments = segments.slice(0); // create shallow copy of array
-		urlSegments.push(this.urlSegment);
-		urlSegments.push(this.version);
+    generateEndpoint(segments) {
+        var urlSegments = segments.slice(0); // create shallow copy of array
+        urlSegments.push(this.urlSegment);
+        urlSegments.push(this.version);
 
         var endpoint = {};
-	    endpoint.values = {};
-	    endpoint.urlSegments = urlSegments;
+        endpoint.values = {};
+        endpoint.urlSegments = urlSegments;
         endpoint.getUrlSegments = function() {
             return this.urlSegment;
         };
 
-	    let parameterIndex = 0;
-	    let parameter;
+        let parameterIndex = 0;
+        let parameter;
         let endpointParam;
 
-	    if(this.needsParams) { // generate the endpoint with the parameters but no sendRequest function
+        if(this.needsParams) { // generate the endpoint with the parameters but no sendRequest function
             for (parameterIndex = 0; parameterIndex < this.parameters.length; parameterIndex++) {
                 parameter = this.parameters[parameterIndex].generateParameter(urlSegments);
                 endpoint[this.parameters[parameterIndex].getName()] = parameter;
@@ -76,16 +80,9 @@ module.exports = class EndpointHandler {
                     };
 
                     endpoint.sendRequest = function() {
-						const requestUrl = Utils.generateRequestUrl(urlSegments, endpoint.values);
+                        const requestUrl = Utils.generateRequestUrl(urlSegments, endpoint.values);
 
-                        const rpOptions = {
-                            uri: requestUrl,
-                            json: true
-                        };
-
-                        var promise = rp(rpOptions);
-
-                        endpoint.values = {};
+                        var promise = Utils.generatePromise();
 
                         return promise;
                     };
@@ -93,12 +90,12 @@ module.exports = class EndpointHandler {
             }
 
             endpoint.requestable = false;
-		} else {
-			// generate the endpoint with the parameters but also with a sendRequest function
-			for(parameterIndex = 0; parameterIndex < this.parameters.length; parameterIndex++) {
-			    parameter = this.parameters[parameterIndex].generateParameter(urlSegments);
+        } else {
+            // generate the endpoint with the parameters but also with a sendRequest function
+             for(parameterIndex = 0; parameterIndex < this.parameters.length; parameterIndex++) {
+                 parameter = this.parameters[parameterIndex].generateParameter(urlSegments);
                 endpoint[this.parameters[parameterIndex].getName()] = parameter;
-			    endpointParam = endpoint[this.parameters[parameterIndex].getName()];
+                endpointParam = endpoint[this.parameters[parameterIndex].getName()];
 
                 // immediately invoked function to save the proper references to the parameter function
                 (function (param) {
@@ -108,7 +105,7 @@ module.exports = class EndpointHandler {
                         return this;
                     };
 
-					endpoint.sendRequest = function() {
+                    endpoint.sendRequest = function() {
                         const requestUrl = Utils.generateRequestUrl(urlSegments, endpoint.values);
 
                         const rpOptions = {
@@ -123,11 +120,11 @@ module.exports = class EndpointHandler {
                         return promise;
                     };
                 })(parameter);
-			}
+            }
 
             endpoint.requestable = true;
-		}
+        }
 
-		return endpoint;
-	}
+        return endpoint;
+    }
 };
