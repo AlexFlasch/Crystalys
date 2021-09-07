@@ -4,7 +4,7 @@
     "url": "https://github.com/Flascher/Crystalys/issues"
   },
   "dependencies": {
-    "axios": "^0.18.1",
+    "axios": "^0.21.3",
     "chalk": "^1.1.1"
   },
   "description": "A wrapper for Valve's DOTA2 WebAPI that uses promises and ES6 techniques!",
