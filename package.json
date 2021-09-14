@@ -5,7 +5,7 @@
   },
   "dependencies": {
     "axios": "^0.18.1",
-    "chalk": "^1.1.1"
+    "chalk": "^2.0.0"
   },
   "description": "A wrapper for Valve's DOTA2 WebAPI that uses promises and ES6 techniques!",
   "devDependencies": {
